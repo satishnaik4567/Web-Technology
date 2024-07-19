@@ -1,0 +1,32 @@
+import org.w3c.dom.*;
+import javax.xml.parsers.*;
+import java.io.*;
+import java.util.Scanner;
+
+public class ReadXML {
+    public static void main(String[] args) throws Exception { 
+        // Parse the XML file and normalize
+        DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        Document document = builder.parse(new File("employees.xml"));
+        document.getDocumentElement().normalize();
+        
+        // Get all employee nodes
+        NodeList nList = document.getElementsByTagName("employee"); 
+        
+        // Prompt user for employee ID
+        System.out.print("Enter employee id: ");
+        Scanner scanner = new Scanner(System.in); 
+        String id = scanner.next();
+        
+        // Loop through employees to find and print details of the matching ID
+        for (int i = 0; i < nList.getLength(); i++) {
+            Element employee = (Element) nList.item(i);
+            if (employee.getAttribute("id").equals(id)) {
+                System.out.println("First Name: " + employee.getElementsByTagName("firstName").item(0).getTextContent());
+                System.out.println("Last Name: " + employee.getElementsByTagName("lastName").item(0).getTextContent());
+                System.out.println("Location: " + employee.getElementsByTagName("location").item(0).getTextContent());
+                break;
+            }
+        }
+    }
+}
