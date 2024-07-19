@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Us</title>
+    <style>
+        body {
+            background-color: #ffd0ff;
+            color: #000000;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <br /><br />
+    <h3>Contact Us</h3><br />
+    <script>
+        function validateContactForm() {
+            var flag = 1;
+            var name = document.contactForm.name.value;
+            var email = document.contactForm.email.value;
+            var message = document.contactForm.message.value;
+            
+            if (name == "" || email == "" || message == "") {
+                alert("Enter all the details");
+                flag = 0;
+                return;
+            }
+
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email.match(emailPattern)) {
+                flag = 0;
+                alert("Invalid email address.");
+            }
+
+            var namePattern = /^[a-zA-Z\s]+$/;
+            if (!name.match(namePattern)) {
+                flag = 0;
+                alert("Invalid name. Only letters and spaces are allowed.");
+            }
+
+            if (flag == 1) {
+                alert("Message sent successfully!");
+                window.self.location.href = "thankyou.html"; // Redirect to a thank you page
+            } else {
+                alert("Please correct the errors and try again.");
+            }
+        }
+    </script>
+    <form name="contactForm">
+        <div>
+            <pre>
+Name:         <input type="text" name="name"><br>
+Email:        <input type="email" name="email"/><br>
+Message:      <textarea name="message" rows="5" cols="19"></textarea><br>
+            </pre>
+        </div>
+        <div>
+            <input type="button" value="Submit" onClick="validateContactForm()" />
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="reset" value="Clear" />
+        </div>
+    </form>
+</body>
+</html>
